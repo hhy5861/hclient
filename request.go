@@ -1,17 +1,17 @@
 package hclient
 
 import (
-	"github.com/hhy5861/hclient/plugins"
-	"github.com/hhy5861/nethttp"
 	"context"
 	"encoding/json"
 	"github.com/go-resty/resty/v2"
+	"github.com/hhy5861/hclient/plugins"
+	"github.com/hhy5861/nethttp"
 	"net/http"
 	"net/url"
 )
 
 type (
-	request struct {
+	Request struct {
 		remotes map[string]*Remote
 		client  *resty.Client
 		query   *Query
@@ -26,10 +26,10 @@ var (
 	}
 )
 
-func NewRequest(ctx context.Context, remotes map[string]*Remote) *request {
+func NewRequest(ctx context.Context, remotes map[string]*Remote) *Request {
 	hook := plugins.NewHook()
 
-	return &request{
+	return &Request{
 		query: &Query{
 			ctx:      ctx,
 			header:   make(map[string]string),
@@ -42,7 +42,7 @@ func NewRequest(ctx context.Context, remotes map[string]*Remote) *request {
 	}
 }
 
-func (svc *request) Get() IResponse {
+func (svc *Request) Get() IResponse {
 	res, err := svc.SkipVerify().
 		SetDebug(svc.query.debug).
 		SetTimeout(svc.query.timeout).
@@ -54,7 +54,7 @@ func (svc *request) Get() IResponse {
 	return svc.query.response.SetError(err)
 }
 
-func (svc *request) Post() IResponse {
+func (svc *Request) Post() IResponse {
 	res, err := svc.SkipVerify().
 		SetDebug(svc.query.debug).
 		SetTimeout(svc.query.timeout).
@@ -67,7 +67,7 @@ func (svc *request) Post() IResponse {
 	return svc.query.response.SetError(err)
 }
 
-func (svc *request) PostUrlEncode() IResponse {
+func (svc *Request) PostUrlEncode() IResponse {
 	res, err := svc.SkipVerify().
 		SetDebug(svc.query.debug).
 		SetTimeout(svc.query.timeout).
@@ -80,7 +80,7 @@ func (svc *request) PostUrlEncode() IResponse {
 	return svc.query.response.SetError(err)
 }
 
-func (svc *request) PostJson() IResponse {
+func (svc *Request) PostJson() IResponse {
 	body, errMsg := json.Marshal(svc.query.body)
 	if errMsg != nil {
 		return svc.query.response.SetBody(defaultJson, 406)
@@ -97,7 +97,7 @@ func (svc *request) PostJson() IResponse {
 	return svc.query.response.SetBody(res.Body(), res.StatusCode())
 }
 
-func (svc *request) Put() IResponse {
+func (svc *Request) Put() IResponse {
 	res, err := svc.SkipVerify().
 		SetDebug(svc.query.debug).
 		SetTimeout(svc.query.timeout).
@@ -109,7 +109,7 @@ func (svc *request) Put() IResponse {
 	return svc.query.response.SetError(err)
 }
 
-func (svc *request) Delete() IResponse {
+func (svc *Request) Delete() IResponse {
 	res, err := svc.SkipVerify().
 		SetDebug(svc.query.debug).
 		SetTimeout(svc.query.timeout).

@@ -9,7 +9,7 @@ import (
 
 type (
 	Client struct {
-		request *request
+		request *Request
 	}
 
 	ConfigCache struct {
@@ -19,13 +19,13 @@ type (
 	}
 
 	Remote struct {
-		Protocol  string        `json:"protocol" yaml:"protocol"`
-		Service   string        `json:"service" yaml:"service"`
-		Namespace string        `json:"namespace" yaml:"namespace"`
-		Domain    string        `json:"domain" yaml:"domain"`
-		Port      int           `json:"port" yaml:"port"`
-		Debug     bool          `json:"debug" yaml:"debug"`
-		Timeout   time.Duration `json:"timeout" yaml:"timeout"`
+		Protocol  string        `json:"protocol" yaml:"protocol,omitempty"`
+		Service   string        `json:"service" yaml:"service,omitempty"`
+		Namespace string        `json:"namespace" yaml:"namespace,omitempty"`
+		Domain    string        `json:"domain" yaml:"domain,omitempty"`
+		Port      int           `json:"port" yaml:"port,omitempty"`
+		Debug     bool          `json:"debug" yaml:"debug,omitempty"`
+		Timeout   time.Duration `json:"timeout" yaml:"timeout,omitempty"`
 	}
 
 	Option func(c *ConfigCache)
