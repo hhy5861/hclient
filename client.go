@@ -19,13 +19,13 @@ type (
 	}
 
 	Remote struct {
-		Protocol  string        `json:"protocol,omitempty" yaml:"protocol,omitempty"`
-		Service   string        `json:"service,omitempty" yaml:"service,omitempty"`
-		Namespace string        `json:"namespace,omitempty" yaml:"namespace,omitempty"`
-		Domain    string        `json:"domain,omitempty" yaml:"domain,omitempty"`
-		Port      int           `json:"port,omitempty" yaml:"port,omitempty"`
-		Debug     bool          `json:"debug,omitempty" yaml:"debug,omitempty"`
-		Timeout   time.Duration `json:"timeout,omitempty" yaml:"timeout,omitempty"`
+		Protocol  string        `json:"protocol,optional,omitempty" yaml:"protocol,optional,omitempty"`
+		Service   string        `json:"service,optional,omitempty" yaml:"service,optional,omitempty"`
+		Namespace string        `json:"namespace,optional,omitempty" yaml:"namespace,optional,omitempty"`
+		Domain    string        `json:"domain,optional,omitempty" yaml:"domain,optional,omitempty"`
+		Port      int           `json:"port,optional,omitempty" yaml:"port,optional,omitempty"`
+		Debug     bool          `json:"debug,optional,omitempty" yaml:"debug,optional,omitempty"`
+		Timeout   time.Duration `json:"timeout,optional,omitempty" yaml:"timeout,optional,omitempty"`
 	}
 
 	Option func(c *ConfigCache)
