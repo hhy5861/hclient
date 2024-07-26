@@ -25,7 +25,12 @@ const (
 func (svc *K8S) Formatter() string {
 	svc.namespace().domain().port().schema()
 
-	return fmt.Sprintf("%s://%s.%s.%s:%d", svc.Schema, svc.Service, svc.Namespace, svc.Domain, svc.Port)
+	url := fmt.Sprintf("%s://%s.%s.%s:%d", svc.Schema, svc.Service, svc.Namespace, svc.Domain, svc.Port)
+	if svc.Port <= 0 {
+		url = fmt.Sprintf("%s://%s.%s.%s", svc.Schema, svc.Service, svc.Namespace, svc.Domain)
+	}
+
+	return url
 }
 
 func (svc *K8S) namespace() *K8S {

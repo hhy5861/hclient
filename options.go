@@ -7,6 +7,12 @@ import (
 // SetRemotes set client remote service list
 func SetRemotes(remote map[string]*Remote) Option {
 	return func(c *ConfigCache) {
+		for k, v := range remote {
+			if v.Service == "" {
+				v.Service = k
+			}
+		}
+
 		c.remotes = remote
 	}
 }
