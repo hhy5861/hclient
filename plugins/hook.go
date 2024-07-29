@@ -42,7 +42,7 @@ func (h *Hook) BeforeRequest(c *resty.Client, req *resty.Request) error {
 }
 
 func (h *Hook) PreRequestHook(c *resty.Client, req *http.Request) error {
-	h.metric.clientReqCnt.WithLabelValues(req.Method, req.Method).Inc()
+	h.metric.clientReqCnt.WithLabelValues(req.Method, req.URL.Path).Inc()
 	h.metric.clientReqSz.WithLabelValues(req.Method, req.URL.Path).Observe(float64(computeApproximateRequestSize(req)))
 
 	return nil
